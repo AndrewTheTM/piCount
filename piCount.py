@@ -18,8 +18,10 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
-            while True:
+            c = True
+            while c:
                 try:
+                    print "start"
                     camera.capture(stream, format = 'jpeg')
                     data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
                     img = cv2.imdecode(data,1)
@@ -52,7 +54,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(bytearray(buf))
                     self.wfile.write('\r\n')
-                    time.sleep(2)
+                    c = False
                     print "at end"
                 except KeyboardInterrupt:
                     camera.release()
