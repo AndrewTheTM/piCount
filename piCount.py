@@ -57,7 +57,6 @@ class CamHandler(BaseHTTPRequestHandler):
                     c = False
                     print "at end"
                 except KeyboardInterrupt:
-                    camera.release()
                     break
             return
         if self.path.endswith('.html') or self.path=="/":
@@ -65,7 +64,7 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type','text/html')
             self.end_headers()
             self.wfile.write('<html><head></head><body>')
-            self.wfile.write('<img src="http://127.0.0.1:9090/cam.mjpg"/>')
+            self.wfile.write('<img src="/cam.mjpg"/>')
             self.wfile.write('</body></html>')
             return
 
@@ -83,8 +82,9 @@ def main():
         print "server started"
         server.serve_forever()
     except KeyboardInterrupt:
-		capture.release()
-		server.socket.close()
+		#capture.release()
+        camera.release()
+        server.socket.close()
 
 if __name__ == '__main__':
 	main()
