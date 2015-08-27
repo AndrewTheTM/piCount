@@ -29,8 +29,9 @@ class CamHandler(BaseHTTPRequestHandler):
 
                     img = camera.capture(stream,'jpeg')
                     print "got image?"
-                    imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-                    print "converted image?"
+                    #imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+                    imgRGB = img
+                    print "Didn't convert image."
                     # try:
                     #     with picamera.PiCamera() as camera:
                     #         camera.resolution = (640,480)
