@@ -28,9 +28,9 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
 
                     img = camera.capture_continuous(stream,'jpeg')
-
+                    print "got image?"
                     imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-
+                    print "converted image?"
                     # try:
                     #     with picamera.PiCamera() as camera:
                     #         camera.resolution = (640,480)
@@ -57,6 +57,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(len(buf)))
                     self.end_headers()
+                    print "ended headers"
                     self.wfile.write(bytearray(buf))
                     self.wfile.write('\r\n')
                     time.sleep(0.5)
