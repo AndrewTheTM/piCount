@@ -23,11 +23,11 @@ class CamHandler(BaseHTTPRequestHandler):
                 stream = io.BytesIO()
                 camera = picamera.PiCamera()
                 camera.resolution = (640,480)
-                camera.start_preview()
                 time.sleep(2)
                 try:
 
                     img = camera.capture(stream,'jpeg')
+                    print img
                     data = numpy.fromstring(stream.getValue(), dtype=numpy.uint8)
                     print "got image?"
                     print data
