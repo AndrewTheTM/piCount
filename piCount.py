@@ -20,10 +20,12 @@ class CamHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
             while True:
+                stream = io.BytesIO()
+                camera = picamera.PiCamera()
                 try:
-                    stream = io.BytesIO()
-                    img = picamera.PiCamera().capture(stream,"jpeg")
-                    
+
+                    img = camera.capture(stream,"jpeg")
+
                     imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
 
                     # try:
@@ -56,6 +58,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.wfile.write('\r\n')
                     time.sleep(0.5)
                 except KeyboardInterrupt:
+                    camera.release()
                     break
             return
         if self.path.endswith('.html') or self.path=="/":
