@@ -1,7 +1,7 @@
 # Raspberry Pi Counting System
 # @author Andrew Rohne, OKI Regional Council, @okiAndrew, 8/25/2015
 
-import cv2, sys, os, picamera, io
+import cv2, sys, os, picamera, io, time
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
 #cascPath = "C:\\Modelrun\\TruckModel\\RPi\\PiCount\\faceCascades\\haarcascade_frontalface_default.xml"
