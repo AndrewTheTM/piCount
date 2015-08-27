@@ -83,6 +83,7 @@ def main():
     stream = io.BytesIO()
     camera = picamera.PiCamera()
     camera.resolution = (640,480)
+    
 	try:
 		server = HTTPServer(('',9090),CamHandler)
 		print "server started"
