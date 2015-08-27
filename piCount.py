@@ -77,13 +77,15 @@ def main():
     stream = io.BytesIO()
     camera = picamera.PiCamera()
     camera.resolution = (640,480)
+    camera.hflip = True
+    camera.vflip = True
     try:
         server = HTTPServer(('',9090),CamHandler)
         print "server started"
         server.serve_forever()
     except KeyboardInterrupt:
 		#capture.release()
-        camera.release()
+        #camera.release()
         server.socket.close()
 
 if __name__ == '__main__':
