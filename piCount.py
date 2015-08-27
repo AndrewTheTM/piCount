@@ -27,7 +27,7 @@ class CamHandler(BaseHTTPRequestHandler):
                 time.sleep(2)
                 try:
 
-                    img = camera.capture_continuous(stream,'jpeg')
+                    img = camera.capture(stream,'jpeg')
                     print "got image?"
                     imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
                     print "converted image?"
