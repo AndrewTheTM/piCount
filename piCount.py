@@ -75,7 +75,7 @@ class CamHandler(BaseHTTPRequestHandler):
             return
 
 def main():
-	global capture
+	#global capture
 	#capture = cv2.VideoCapture(0)
 	#capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
 	#capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
@@ -83,12 +83,11 @@ def main():
     stream = io.BytesIO()
     camera = picamera.PiCamera()
     camera.resolution = (640,480)
-    
-	try:
-		server = HTTPServer(('',9090),CamHandler)
-		print "server started"
-		server.serve_forever()
-	except KeyboardInterrupt:
+    try:
+        server = HTTPServer(('',9090),CamHandler)
+        print "server started"
+        server.serve_forever()
+    except KeyboardInterrupt:
 		capture.release()
 		server.socket.close()
 
