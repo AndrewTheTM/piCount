@@ -1,12 +1,24 @@
 # Raspberry Pi Counting System
 # @author Andrew Rohne, OKI Regional Council, @okiAndrew, 8/25/2015
 
-import numpy, cv2, matplotlib
-cascPath = "C:\\Modelrun\\TruckModel\\RPi\\PiCount\\faceCascades\\haarcascade_frontalface_default.xml"
+import numpy, cv2, matplotlib, sys, os, picamera, io
+#cascPath = "C:\\Modelrun\\TruckModel\\RPi\\PiCount\\faceCascades\\haarcascade_frontalface_default.xml"
+
+runPath = os.path.join(os.path.dirname(sys.argv[0]))
+
+cascPath = runPath + "\\cascade.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 
-cv2.namedWindow("Preview")
-capture = cv2.VideoCapture(0)
+stream = io.BytesIO()
+with picamera.PiCamera() as camera:
+    camera.capture(stream, format='jpeg')
+
+data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
+
+
+#cv2.namedWindow("Preview")
+#capture = cv2.VideoCapture(0)
+capture = cv2.imdecode(data,1)
 if capture.isOpened():
     rval, frame = capture.read()
 else:
