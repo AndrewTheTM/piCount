@@ -22,9 +22,12 @@ class CamHandler(BaseHTTPRequestHandler):
             while True:
                 stream = io.BytesIO()
                 camera = picamera.PiCamera()
+                camera.resolution = (640,480)
+                camera.start_preview()
+                time.sleep(2)
                 try:
 
-                    img = camera.capture(stream,"jpeg")
+                    img = camera.capture_continuous(stream,'jpeg')
 
                     imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
 
