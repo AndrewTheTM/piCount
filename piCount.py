@@ -18,19 +18,12 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
-
             while True:
                 try:
-
                     camera.capture(stream, format = 'jpeg')
-
                     data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
-                    print data
-                    print "got image?"
                     img = cv2.imdecode(data,1)
                     #imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-                    imgRGB = img
-                    print "Didn't convert image."
                     # try:
                     #     with picamera.PiCamera() as camera:
                     #         camera.resolution = (640,480)
@@ -60,7 +53,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     print "ended headers"
                     self.wfile.write(bytearray(buf))
                     self.wfile.write('\r\n')
-                    time.sleep(0.5)
+                    time.sleep(1)
                 except KeyboardInterrupt:
                     camera.release()
                     break
