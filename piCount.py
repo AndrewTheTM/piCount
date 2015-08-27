@@ -26,7 +26,7 @@ class CamHandler(BaseHTTPRequestHandler):
                 time.sleep(2)
                 try:
 
-                    img = camera.capture(stream, format = 'jpeg')
+                    camera.capture(stream, format = 'jpeg')
 
                     data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
                     print data
