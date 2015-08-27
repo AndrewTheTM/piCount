@@ -28,7 +28,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
                     img = camera.capture(stream,'jpeg')
                     print img
-                    data = numpy.fromstring(stream.getValue(), dtype=numpy.uint8)
+                    #data = numpy.fromstring(stream.getValue(), dtype=numpy.uint8)
                     print "got image?"
                     print data
                     #imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
