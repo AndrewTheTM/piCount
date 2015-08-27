@@ -54,7 +54,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(bytearray(buf))
                     self.wfile.write('\r\n')
-                    c = False
+                    #c = False
                     print "at end"
                 except KeyboardInterrupt:
                     break
