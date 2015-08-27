@@ -50,10 +50,10 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(len(buf)))
                     self.end_headers()
-                    print "ended headers"
                     self.wfile.write(bytearray(buf))
                     self.wfile.write('\r\n')
-                    time.sleep(1)
+                    time.sleep(2)
+                    print "at end"
                 except KeyboardInterrupt:
                     camera.release()
                     break
