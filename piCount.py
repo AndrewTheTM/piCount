@@ -28,21 +28,15 @@ class CamHandler(BaseHTTPRequestHandler):
                     camera.capture(stream, format = 'jpeg')
                     data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
                     img = cv2.imdecode(data,1)
-                    for foo in camera.capture_continuous(stream,'jpeg'):
-                        fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                        faces = faceCascade.detectMultiScale(
-                            fr2,
-                            scaleFactor = 1.3,
-                            minNeighbors = 5,
-                            minSize = (30,30),
-                            flags = cv2.CASCADE_SCALE_IMAGE
-                            )
-                        for (x, y, w, h) in faces:
-                            cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                    #for foo in camera.capture_continuous(stream,'jpeg'):
+                    fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                        #faces = faceCascade.detectMultiScale(fr2, scaleFactor = 1.3, minNeighbors = 5, minSize = (30,30), flags = cv2.CASCADE_SCALE_IMAGE)
+                        #for (x, y, w, h) in faces:
+                            #cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 
 
-                    r, buf = cv2.imencode(".jpg",img)
+                    r, buf = cv2.imencode(".jpg",fr2)
                     self.wfile.write("--jpgboundary\r\n")
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(len(buf)))
