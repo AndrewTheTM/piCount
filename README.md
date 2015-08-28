@@ -11,6 +11,10 @@ I've collected some internet pictures of trucks that I am going to use to train
 the classifier for trucks.  I will also set this up to save images and count the
 frames to see what the count is and do some comparisons (eventually).
 
+One of the biggest (if not _THE_ biggest) todo items is to make this run even
+when someone isn't pulling up the webpage.  That sounds more difficult than it
+likely will be.
+
 # Included
 
 The included classifier (cascade.xml) is for cars and trucks.  I generated it
