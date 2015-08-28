@@ -32,7 +32,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                     faces = faceCascade.detectMultiScale(fr2, scaleFactor = 1.3, minNeighbors = 5, minSize = (30,30), flags = cv2.CASCADE_SCALE_IMAGE)
                     for (x, y, w, h) in faces:
-                        cv2.rectangle(fr2, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 
 
