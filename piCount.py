@@ -36,7 +36,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
 
 
-                    r, buf = cv2.imencode(".jpg",fr2)
+                    r, buf = cv2.imencode(".jpg",img)
                     self.wfile.write("--jpgboundary\r\n")
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(len(buf)))
