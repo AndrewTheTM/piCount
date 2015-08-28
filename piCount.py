@@ -9,12 +9,15 @@ import cv2, sys, os, io, time, numpy
 #import picamera
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
-RPI = False
+RPI = True
+if RPI:
+    import picamera
+
+
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "cascade.xml")
-        print cascPath
         faceCascade = cv2.CascadeClassifier(cascPath)
         if self.path.endswith('.mjpg'):
             self.send_response(200)
@@ -61,18 +64,16 @@ class CamHandler(BaseHTTPRequestHandler):
             return
 
 def main():
-	#global capture
-	#capture = cv2.VideoCapture(0)
-	#capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
-	#capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
     global camera
-    #camera = picamera.PiCamera()
-    #camera.resolution = (640,480)
-    #camera.hflip = True
-    #camera.vflip = True
-    camera = cv2.VideoCapture(0)
-    camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
-    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
+    if RPI:
+        camera = picamera.PiCamera()
+        camera.resolution = (640,480)
+        camera.hflip = True
+        camera.vflip = True
+    else:
+        camera = cv2.VideoCapture(0)
+        camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
+        camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
     try:
         server = HTTPServer(('',9090),CamHandler)
         print "server started"
