@@ -14,7 +14,8 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        cascPath = "cascade.xml"
+        cascPath = os.path.join(os.path.abspath(pathname), "cascade.xml")
+        print cascPath
         faceCascade = cv2.CascadeClassifier(cascPath)
         if self.path.endswith('.mjpg'):
             self.send_response(200)
