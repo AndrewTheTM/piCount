@@ -1,6 +1,10 @@
 # Raspberry Pi Counting System
 # @author Andrew Rohne, OKI Regional Council, @okiAndrew, 8/25/2015
 
+# LArge parts taken from https://github.com/berak/opencv_smallfry/blob/master/mjpg_serve.py
+
+#FIXME: only takes an image when started, not continuously!
+
 import cv2, sys, os, picamera, io, time, numpy
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
@@ -22,6 +26,7 @@ class CamHandler(BaseHTTPRequestHandler):
             while c:
                 try:
                     print "start"
+                    stream = io.BytesIO()
                     camera.capture(stream, format = 'jpeg')
                     data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
                     img = cv2.imdecode(data,1)
@@ -73,8 +78,7 @@ def main():
 	#capture = cv2.VideoCapture(0)
 	#capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
 	#capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
-    global camera, stream
-    stream = io.BytesIO()
+    global camera
     camera = picamera.PiCamera()
     camera.resolution = (640,480)
     camera.hflip = True
