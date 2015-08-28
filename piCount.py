@@ -17,7 +17,8 @@ if RPI:
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "cascade.xml")
+        #cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "cascade.xml")
+        cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "checkcas.xml")
         faceCascade = cv2.CascadeClassifier(cascPath)
         if self.path.endswith('.mjpg'):
             self.send_response(200)
