@@ -29,8 +29,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
                     img = cv2.imdecode(data,1)
                     for foo in camera.capture_continuous(stream,'jpeg'):
-                        capture = cv2.imdecode(stream,1)
-                        fr2 = cv2.cvtColor(capture, cv2.COLOR_BGR2GRAY)
+                        fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                         faces = faceCascade.detectMultiScale(
                             fr2,
                             scaleFactor = 1.3,
