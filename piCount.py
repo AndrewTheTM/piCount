@@ -23,6 +23,8 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
                     runPath = os.path.join(os.path.dirname(sys.argv[0]))
                     cascPath = runPath + "/cascade.xml"
+                    print sys.argv[0]
+                    print __file__
                     print runPath
                     print cascPath
                     print os.path.dirname(__file__)
