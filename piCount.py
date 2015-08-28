@@ -23,6 +23,8 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
                     runPath = os.path.join(os.path.dirname(sys.argv[0]))
                     cascPath = runPath + "/cascade.xml"
+                    print runPath
+                    print cascPath
                     faceCascade = cv2.CascadeClassifier(cascPath)
                     stream = io.BytesIO()
                     camera.capture(stream, format = 'jpeg')
