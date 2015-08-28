@@ -5,12 +5,11 @@
 
 #FIXME: only takes an image when started, not continuously!
 
-import cv2, sys, os, picamera, io, time, numpy
+import cv2, sys, os, io, time, numpy
+#import picamera
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
-#cascPath = "C:\\Modelrun\\TruckModel\\RPi\\PiCount\\faceCascades\\haarcascade_frontalface_default.xml"
-
-
+RPI = False
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -24,11 +23,20 @@ class CamHandler(BaseHTTPRequestHandler):
             while True:
                 try:
                     stream = io.BytesIO()
-                    camera.capture(stream, format = 'jpeg')
-                    data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
-                    img = cv2.imdecode(data,1)
+                    if RPI:
+                        camera.capture(stream, format = 'jpeg')
+                        data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
+                        img = cv2.imdecode(data,1)
+                        fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    else:
+                        cap, img = camera.read()
+                        if not cap:
+                            print "didn't capture"
+                        fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+
                     #for foo in camera.capture_continuous(stream,'jpeg'):
-                    fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
                     faces = faceCascade.detectMultiScale(fr2, scaleFactor = 1.3, minNeighbors = 5, minSize = (30,30), flags = cv2.CASCADE_SCALE_IMAGE)
                     for (x, y, w, h) in faces:
                         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -58,10 +66,13 @@ def main():
 	#capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
 	#capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
     global camera
-    camera = picamera.PiCamera()
-    camera.resolution = (640,480)
-    camera.hflip = True
-    camera.vflip = True
+    #camera = picamera.PiCamera()
+    #camera.resolution = (640,480)
+    #camera.hflip = True
+    #camera.vflip = True
+    camera = cv2.VideoCapture(0)
+    camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
+    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
     try:
         server = HTTPServer(('',9090),CamHandler)
         print "server started"
