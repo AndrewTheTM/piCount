@@ -42,8 +42,8 @@ class CamHandler(BaseHTTPRequestHandler):
                     #for foo in camera.capture_continuous(stream,'jpeg'):
 
                     faces = faceCascade.detectMultiScale(fr2,
-                        scaleFactor = 1.2,
-                        minNeighbors = 8,
+                        scaleFactor = 1.1,
+                        minNeighbors = 5,
                         minSize = (50,30),
                         maxSize = (120,100),
                         flags = cv2.CASCADE_SCALE_IMAGE)
