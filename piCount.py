@@ -57,6 +57,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     self.wfile.write(bytearray(buf))
                     self.wfile.write('\r\n')
+                    #FIXME: broken pipe when closing page
                 except KeyboardInterrupt:
                     break
             return
