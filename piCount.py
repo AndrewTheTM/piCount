@@ -32,7 +32,7 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
             while True:
-                if fn>10:
+                if fn>1000:
                     saveImageMode = False
                 try:
                     stream = io.BytesIO()
