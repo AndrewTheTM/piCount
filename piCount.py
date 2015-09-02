@@ -9,10 +9,9 @@ import cv2, sys, os, io, time, numpy
 #import picamera
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
-global RPI, runDetect, saveImageMode
+global RPI
 RPI = True
-runDetect = False
-saveImageMode = True
+
 
 
 if RPI:
@@ -26,6 +25,8 @@ class CamHandler(BaseHTTPRequestHandler):
         cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "checkcas.xml")
         faceCascade = cv2.CascadeClassifier(cascPath)
         fn = 1
+        runDetect = False
+        saveImageMode = True
         if self.path.endswith('.mjpg'):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
