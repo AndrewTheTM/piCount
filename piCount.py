@@ -12,6 +12,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 RPI = True
 runDetect = False
 saveImageMode = True
+fn = 1
 if RPI:
     import picamera
 
