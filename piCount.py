@@ -27,6 +27,8 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
             while True:
+                if fn>1000:
+                    saveImageMode = False
                 try:
                     stream = io.BytesIO()
                     if RPI:
@@ -41,9 +43,10 @@ class CamHandler(BaseHTTPRequestHandler):
                         fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
                     if saveImageMode:
-                        for fn in range(0,1000):
-                            f = "/home/pi/saveImage/img" + str(f).zfill(4) + ".jpg"
-                            cv2.imwrite(f,img)
+                        f = "/home/pi/saveImage/img" + str(fn).zfill(4) + ".jpg"
+                        cv2.imwrite(f,img)
+                        print "wrote image"
+                        fn += 1
 
 
                     #for foo in camera.capture_continuous(stream,'jpeg'):
