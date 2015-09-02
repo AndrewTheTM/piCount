@@ -51,7 +51,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     if saveImageMode:
                         f = "/home/pi/saveImage/img" + str(fn).zfill(4) + ".jpg"
                         # get 0,102 to 640,184
-                        cv2.imwrite(f,img[0:640,102,184])
+                        cv2.imwrite(f,img[0:640,102:184])
                         print "wrote image"
                         fn += 1
 
