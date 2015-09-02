@@ -10,6 +10,7 @@ import cv2, sys, os, io, time, numpy
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
 RPI = True
+runDetect = False
 if RPI:
     import picamera
 
@@ -41,14 +42,15 @@ class CamHandler(BaseHTTPRequestHandler):
 
                     #for foo in camera.capture_continuous(stream,'jpeg'):
 
-                    faces = faceCascade.detectMultiScale(fr2,
-                        scaleFactor = 1.1,
-                        minNeighbors = 5,
-                        minSize = (50,30),
-                        maxSize = (120,100),
-                        flags = cv2.CASCADE_SCALE_IMAGE)
-                    for (x, y, w, h) in faces:
-                        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                    if runDetect:
+                        faces = faceCascade.detectMultiScale(fr2,
+                            scaleFactor = 1.1,
+                            minNeighbors = 5,
+                            minSize = (50,30),
+                            maxSize = (120,100),
+                            flags = cv2.CASCADE_SCALE_IMAGE)
+                        for (x, y, w, h) in faces:
+                            cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
                     r, buf = cv2.imencode(".jpg",img)
                     self.wfile.write("--jpgboundary\r\n")
