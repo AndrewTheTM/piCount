@@ -9,9 +9,11 @@ import cv2, sys, os, io, time, numpy
 #import picamera
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
+global RPI, runDetect, saveImageMode
 RPI = True
 runDetect = False
 saveImageMode = True
+
 
 if RPI:
     import picamera
