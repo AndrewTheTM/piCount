@@ -12,7 +12,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 RPI = True
 runDetect = False
 saveImageMode = True
-fn = 1
+
 if RPI:
     import picamera
 
@@ -23,6 +23,7 @@ class CamHandler(BaseHTTPRequestHandler):
         #cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "cascade.xml")
         cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "checkcas.xml")
         faceCascade = cv2.CascadeClassifier(cascPath)
+        fn = 1
         if self.path.endswith('.mjpg'):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
