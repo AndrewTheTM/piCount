@@ -25,8 +25,8 @@ class CamHandler(BaseHTTPRequestHandler):
         cascPath = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "checkcas.xml")
         faceCascade = cv2.CascadeClassifier(cascPath)
         fn = 1
-        runDetect = False
-        saveImageMode = True
+        runDetect = True
+        saveImageMode = False
         if self.path.endswith('.mjpg'):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
@@ -46,7 +46,7 @@ class CamHandler(BaseHTTPRequestHandler):
                         cap, img = camera.read()
                         if not cap:
                             print "didn't capture"
-                        fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                        fr2 = cv2.cvtColor(img[102:286,0:640], cv2.COLOR_BGR2GRAY)
 
                     if saveImageMode:
                         f = "/home/pi/saveImage/img" + str(fn).zfill(4) + ".jpg"
@@ -66,7 +66,7 @@ class CamHandler(BaseHTTPRequestHandler):
                             maxSize = (120,100),
                             flags = cv2.CASCADE_SCALE_IMAGE)
                         for (x, y, w, h) in faces:
-                            cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                            cv2.rectangle(img, (x, y+102), (x+w, y+h+102), (0, 255, 0), 2)
 
                     r, buf = cv2.imencode(".jpg",img)
                     self.wfile.write("--jpgboundary\r\n")
