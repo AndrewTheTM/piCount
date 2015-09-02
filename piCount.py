@@ -11,6 +11,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
 RPI = True
 runDetect = False
+saveImageMode = True
 if RPI:
     import picamera
 
@@ -38,6 +39,11 @@ class CamHandler(BaseHTTPRequestHandler):
                         if not cap:
                             print "didn't capture"
                         fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+                    if saveImageMode:
+                        for fn in range(0,1000):
+                            f = "/home/pi/saveImage/img" + str(f).zfill(4) + ".jpg"
+                            cv2.imwrite(f,img)
 
 
                     #for foo in camera.capture_continuous(stream,'jpeg'):
