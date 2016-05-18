@@ -8,22 +8,22 @@
 import os
 from PIL import Image as image
 
-nFiles = os.listdir("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\negative")
+nFiles = os.listdir("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\rampTrain\\neg")
 
 # Negative files should be just a list at a relative path
 
-outFile = open("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\negative.dat","w")
+outFile = open("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\rampTrain\\negative.dat","w")
 for file in nFiles:
-    outFile.write("negative\\" + file + "\n")
+    outFile.write("neg\\" + file + "\n")
 outFile.close()
 
 # Positive files should be a list of file, 1, detect coords (4, space delim)
-pFiles = os.listdir("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\positive")
-outFile = open("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\positive.dat","w")
-for file in pFiles:
-    imgFile = image.open(os.path.join("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\positive\\",file))
-    outFile.write("positive\\" + file + " 1 0 0 " + str(imgFile.size[0]) + " " + str(imgFile.size[1]) + "\n")
-outFile.close()
+#pFiles = os.listdir("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\positive")
+#outFile = open("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\positive.dat","w")
+#for file in pFiles:
+#    imgFile = image.open(os.path.join("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\positive\\",file))
+#    outFile.write("positive\\" + file + " 1 0 0 " + str(imgFile.size[0]) + " " + str(imgFile.size[1]) + "\n")
+#outFile.close()
 
 #
 #outFile = open("C:\\Modelrun\\TruckModel\\RPi\\PiCount\\truckTrain\\train.bat","w")
