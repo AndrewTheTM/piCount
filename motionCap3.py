@@ -10,6 +10,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 # from imutils.video import FPS
 
 global RPI
+global piVidStream
 RPI = True
 
 min_area = 200
@@ -20,9 +21,7 @@ if RPI:
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if RPI:
-            piVidStream = PiVideoStream().start()
-            time.sleep(2.0)
+
 
         # params for ShiTomasi corner detection
         feature_params = dict( maxCorners = 100,
@@ -105,6 +104,9 @@ class CamHandler(BaseHTTPRequestHandler):
             return
 
 def main():
+    if RPI:
+        piVidStream = PiVideoStream().start()
+        time.sleep(2.0)
     # global camera
     # if RPI:
     #     print("RPI Mode")
