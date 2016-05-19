@@ -4,8 +4,6 @@
 # Large parts taken from https://github.com/berak/opencv_smallfry/blob/master/mjpg_serve.py
 from __future__ import print_function
 import sys, numpy, cv2, os, io, time
-from threading import Thread
-#import picamera
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
 from imutils.video.pivideostream import PiVideoStream
@@ -17,16 +15,18 @@ RPI = True
 min_area = 200
 
 if RPI:
-    import picamera
+    from picamera import PiCamera
+    from picamera.array import PiRGBArray
+    from threading import Thread
 
 class PiVideoStream:
     def __init__(self, resolution = (640, 480), framerate = 32):
-        self.camera = picamera.PiCamera()
+        self.camera = PiCamera()
         self.camera.resolution = resolution
         self.camera.hflip = True
         self.camera.vflip = True
         self.camera.framerate = framerate
-        self.rawCapture = picamera.array.PiRGBArray(self.camera, resolution)
+        self.rawCapture = PiRGBArray(self.camera, resolution)
         self.stream = self.camera.capture_continuous(self.rawCapture, format = "bgr", use_video_port = True)
         self.frame = None
         self.stopped = False
