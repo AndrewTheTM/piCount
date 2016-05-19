@@ -40,17 +40,9 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
-            # fgbg = cv2.createBackgroundSubtractorMOG2()
-            # Create some random colors
-            #color = numpy.random.randint(0,255,(100,3))
-
             cap = 0
             while cap < 40:
                 if RPI:
-                    # stream = io.BytesIO()
-                    # camera.capture(stream, format = 'jpeg')
-                    # data = numpy.fromstring(stream.getvalue(), dtype = numpy.uint8)
-                    # old_frame = cv2.imdecode(data,1)
                     old_frame = piVidStream.read()
                     cap = cap + 1
                 else:
@@ -65,11 +57,6 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
                     # Get frame
                     if RPI:
-                        # stream = io.BytesIO()
-                        # camera.capture(stream, format = 'jpeg')
-                        # data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
-                        # img = cv2.imdecode(data,1)
-                        # fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                         img = piVidStream.read()
                     else:
                         cap, img = camera.read()
