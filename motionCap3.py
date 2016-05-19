@@ -42,6 +42,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     frame_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
                     mask = fgbg.apply(frame_gray)
+                    mask = cv2.dilate(mask, None, iterations = 2)
 
                     #img2 = cv2.bitwise_and(img, mask)
                     img2 = mask
