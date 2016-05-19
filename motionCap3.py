@@ -21,7 +21,7 @@ if RPI:
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if RPI:
-            piVidStream = PiVideoStream()
+            piVidStream = piVideoStream()
             piVidStream.start()
 
 
