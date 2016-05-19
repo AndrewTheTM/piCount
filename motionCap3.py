@@ -2,21 +2,66 @@
 # @author Andrew Rohne, OKI Regional Council, @okiAndrew, 8/25/2015
 
 # Large parts taken from https://github.com/berak/opencv_smallfry/blob/master/mjpg_serve.py
-
+from __future__ import print_function
 import sys, numpy, cv2, os, io, time
+from threading import Thread
 #import picamera
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
+from imutils.video.pivideostream import PiVideoStream
+from imutils.video import FPS
+
 global RPI
-RPI = True
+RPI = False
 
 min_area = 200
 
 if RPI:
     import picamera
 
+class PiVideoStream:
+    def __init__(self, resolution = (640, 480), framerate = 32):
+        camera = picamera.PiCamera()
+        camera.resolution = resolution
+        camera.hflip = True
+        camera.vflip = True
+        camera.framerate = framerate
+        self.rawCapture = picamera.PiRGBArray(self.camera, size.resolution)
+        self.stream = self.camera.capture_continuous(self.rawCapture, format = "bgr", use_video_port = True)
+        self.frame = None
+        self.stopped = False
+    def start(self):
+		# start the thread to read frames from the video stream
+		Thread(target=self.update, args=()).start()
+		return self
+    def update(self):
+    	# keep looping infinitely until the thread is stopped
+    	for f in self.stream:
+    		# grab the frame from the stream and clear the stream in
+    		# preparation for the next frame
+    		self.frame = f.array
+    		self.rawCapture.truncate(0)
+
+    		# if the thread indicator variable is set, stop the thread
+    		# and resource camera resources
+    		if self.stopped:
+    			self.stream.close()
+    			self.rawCapture.close()
+    			self.camera.close()
+    			return
+    def read(self):
+    	# return the frame most recently read
+    	return self.frame
+
+    def stop(self):
+    	# indicate that the thread should be stopped
+    	self.stopped = True
+
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        if RPI:
+            piVidStream = PiVideoStream().start()
+
 
         # params for ShiTomasi corner detection
         feature_params = dict( maxCorners = 100,
@@ -41,10 +86,11 @@ class CamHandler(BaseHTTPRequestHandler):
             cap = 0
             while cap < 40:
                 if RPI:
-                    stream = io.BytesIO()
-                    camera.capture(stream, format = 'jpeg')
-                    data = numpy.fromstring(stream.getvalue(), dtype = numpy.uint8)
-                    old_frame = cv2.imdecode(data,1)
+                    # stream = io.BytesIO()
+                    # camera.capture(stream, format = 'jpeg')
+                    # data = numpy.fromstring(stream.getvalue(), dtype = numpy.uint8)
+                    # old_frame = cv2.imdecode(data,1)
+                    old_frame = piVidStream.read()
                     cap = cap + 1
                 else:
                     ret, old_frame = camera.read()
@@ -58,15 +104,14 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
                     # Get frame
                     if RPI:
-                        stream = io.BytesIO()
-                        camera.capture(stream, format = 'jpeg')
-                        data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
-                        img = cv2.imdecode(data,1)
-                        fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                        # stream = io.BytesIO()
+                        # camera.capture(stream, format = 'jpeg')
+                        # data = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
+                        # img = cv2.imdecode(data,1)
+                        # fr2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                        img = piVidStream.read()
                     else:
                         cap, img = camera.read()
-                        if not cap:
-                            print "didn't capture"
                     frame_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                     # get absolute diff between current and first frame
                     frameDelta = cv2.absdiff(old_gray, frame_gray)
@@ -124,7 +169,7 @@ def main():
         camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
     try:
         server = HTTPServer(('',9090),CamHandler)
-        print "server started"
+        print("server started")
         server.serve_forever()
     except KeyboardInterrupt:
 		#capture.release()
