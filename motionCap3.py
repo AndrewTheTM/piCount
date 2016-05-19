@@ -12,7 +12,7 @@ from imutils.video.pivideostream import PiVideoStream
 from imutils.video import FPS
 
 global RPI
-RPI = False
+RPI = True
 
 min_area = 200
 
