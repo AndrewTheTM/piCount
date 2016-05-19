@@ -15,14 +15,13 @@ RPI = True
 min_area = 200
 
 if RPI:
-    import piVideoStream
+    from piVideoStream import PiVideoStream
 
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if RPI:
-            piVidStream = piVideoStream()
-            piVidStream.start()
+            piVidStream = PiVideoStream().start()
 
 
         # params for ShiTomasi corner detection
