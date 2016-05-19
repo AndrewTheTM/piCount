@@ -47,26 +47,31 @@ class CamHandler(BaseHTTPRequestHandler):
 
                     # get absolute diff between current and first frame
                     #frameDelta = cv2.absdiff(old_gray, frame_gray)
-                    thres = cv2.threshold(mask, 50, 255, cv2.THRESH_BINARY)[1]
+
+                    ##thres = cv2.threshold(mask, 50, 255, cv2.THRESH_BINARY)[1]
 
                     #Dilate the thresholded image to fill in holes and then find contours on thresholded image
                     # H/T: http://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/
-                    thres = cv2.dilate(thres, None, iterations = 2)
-                    (_, cnts, _) = cv2.findContours(thres.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                    for c in cnts:
-                        # if the contour is too small, ignore it
-                        if cv2.contourArea(c) < min_area:
-                            continue
 
-                        # compute the bounding box for the contour, draw it on the frame,
-                        # and update the text
-                        (x, y, w, h) = cv2.boundingRect(c)
-                        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                        text = "Occupied"
+                    #####
+                    #
+                    # thres = cv2.dilate(thres, None, iterations = 2)
+                    # (_, cnts, _) = cv2.findContours(thres.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                    # for c in cnts:
+                    #     # if the contour is too small, ignore it
+                    #     if cv2.contourArea(c) < min_area:
+                    #         continue
+                    #
+                    #     # compute the bounding box for the contour, draw it on the frame,
+                    #     # and update the text
+                    #     (x, y, w, h) = cv2.boundingRect(c)
+                    #     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                    #     text = "Occupied"
+                    #####
 
                     #img2 = cv2.bitwise_and(img, mask)
                     #img2 = cv2.add(img, mask)
-                    img2 = img
+                    #img2 = img
                     r, buf = cv2.imencode(".jpg",img2)
                     self.wfile.write("--jpgboundary\r\n")
                     self.send_header('Content-type','image/jpeg')
