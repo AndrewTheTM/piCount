@@ -5,60 +5,40 @@
 from __future__ import print_function
 import sys, numpy, cv2, os, io, time
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
-
-# from imutils.video.pivideostream import PiVideoStream
-# from imutils.video import FPS
-
-global RPI
-
-RPI = True
+from piVideoStream import PiVideoStream
 
 min_area = 200
 
-if RPI:
-    from piVideoStream import PiVideoStream
-
-
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-
-
         # params for ShiTomasi corner detection
-        feature_params = dict( maxCorners = 100,
-            qualityLevel = 0.3,
-            minDistance = 7,
-            blockSize = 7 )
+        # feature_params = dict( maxCorners = 100,
+        #     qualityLevel = 0.3,
+        #     minDistance = 7,
+        #     blockSize = 7 )
 
         # Parameters for lucas kanade optical flow
-        lk_params = dict( winSize  = (15,15),
-            maxLevel = 2,
-            criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
+        # lk_params = dict( winSize  = (15,15),
+        #     maxLevel = 2,
+        #     criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
 
         if self.path.endswith('.mjpg'):
-
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
             cap = 0
             while cap < 40:
-                if RPI:
-                    old_frame = piVidStream.read()
-                    cap = cap + 1
-                else:
-                    ret, old_frame = camera.read()
-                    cap = cap + 1
-                    if not ret:
-                        cap = 0
+                old_frame = piVidStream.read()
+                cap = cap + 1
 
             old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
+
+            fgbg = cv2.createBackgroundSubtractorMOG2()
 
             while True:
                 try:
                     # Get frame
-                    if RPI:
-                        img = piVidStream.read()
-                    else:
-                        cap, img = camera.read()
+                    img = piVidStream.read()
                     frame_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                     # get absolute diff between current and first frame
                     frameDelta = cv2.absdiff(old_gray, frame_gray)
@@ -104,17 +84,9 @@ class CamHandler(BaseHTTPRequestHandler):
             return
 
 def main():
-    if RPI:
-        global piVidStream
-        piVidStream = PiVideoStream().start()
-        time.sleep(2.0)
-    # global camera
-    # if RPI:
-    #     print("RPI Mode")
-    # else:
-    #     camera = cv2.VideoCapture(0)
-    #     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
-    #     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
+    global piVidStream
+    piVidStream = PiVideoStream().start()
+    time.sleep(2.0)
     try:
         server = HTTPServer(('',9090),CamHandler)
         print("server started")
