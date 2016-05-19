@@ -26,7 +26,7 @@ class PiVideoStream:
         camera.hflip = True
         camera.vflip = True
         camera.framerate = framerate
-        self.rawCapture = picamera.PiRGBArray(self.camera, size.resolution)
+        self.rawCapture = PiRGBArray(self.camera, size.resolution)
         self.stream = self.camera.capture_continuous(self.rawCapture, format = "bgr", use_video_port = True)
         self.frame = None
         self.stopped = False
