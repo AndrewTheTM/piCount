@@ -163,7 +163,7 @@ def main():
         # camera.resolution = (640,480)
         # camera.hflip = True
         # camera.vflip = True
-        continue
+        print("RPI Mode")
     else:
         camera = cv2.VideoCapture(0)
         camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
