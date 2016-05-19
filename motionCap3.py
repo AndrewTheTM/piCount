@@ -40,9 +40,14 @@ class CamHandler(BaseHTTPRequestHandler):
                     # Get frame
                     img = piVidStream.read()
                     frame_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+                    mask = fgbg.apply(frame_gray)
+
+                    img2 = cv2.bitwise_and(img, mask)
+
                     # get absolute diff between current and first frame
-                    frameDelta = cv2.absdiff(old_gray, frame_gray)
-                    thres = cv2.threshold(frameDelta, 50, 255, cv2.THRESH_BINARY)[1]
+                    #frameDelta = cv2.absdiff(old_gray, frame_gray)
+                    thres = cv2.threshold(mask, 50, 255, cv2.THRESH_BINARY)[1]
 
                     #Dilate the thresholded image to fill in holes and then find contours on thresholded image
                     # H/T: http://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/
