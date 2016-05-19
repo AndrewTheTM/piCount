@@ -19,6 +19,7 @@ class PiVideoStream:
             print(type(e))
             print(e.args)
             print(e)
+            quit()
 
         print("End init piVideoSream")
     def start(self):

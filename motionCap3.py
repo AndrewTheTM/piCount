@@ -105,17 +105,13 @@ class CamHandler(BaseHTTPRequestHandler):
             return
 
 def main():
-    global camera
-    if RPI:
-        # camera = picamera.PiCamera()
-        # camera.resolution = (640,480)
-        # camera.hflip = True
-        # camera.vflip = True
-        print("RPI Mode")
-    else:
-        camera = cv2.VideoCapture(0)
-        camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
-        camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
+    # global camera
+    # if RPI:
+    #     print("RPI Mode")
+    # else:
+    #     camera = cv2.VideoCapture(0)
+    #     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640);
+    #     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480);
     try:
         server = HTTPServer(('',9090),CamHandler)
         print("server started")
