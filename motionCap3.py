@@ -21,11 +21,11 @@ if RPI:
 
 class PiVideoStream:
     def __init__(self, resolution = (640, 480), framerate = 32):
-        camera = picamera.PiCamera()
-        camera.resolution = resolution
-        camera.hflip = True
-        camera.vflip = True
-        camera.framerate = framerate
+        self.camera = picamera.PiCamera()
+        self.camera.resolution = resolution
+        self.camera.hflip = True
+        self.camera.vflip = True
+        self.camera.framerate = framerate
         self.rawCapture = picamera.array.PiRGBArray(self.camera, size.resolution)
         self.stream = self.camera.capture_continuous(self.rawCapture, format = "bgr", use_video_port = True)
         self.frame = None
