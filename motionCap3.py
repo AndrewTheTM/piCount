@@ -10,7 +10,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 # from imutils.video import FPS
 
 global RPI
-global piVidStream
+
 RPI = True
 
 min_area = 200
@@ -105,6 +105,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
 def main():
     if RPI:
+        global piVidStream
         piVidStream = PiVideoStream().start()
         time.sleep(2.0)
     # global camera
