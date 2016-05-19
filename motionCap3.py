@@ -8,7 +8,7 @@ import sys, numpy, cv2, os, io, time
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 
 global RPI
-RPI = False
+RPI = True
 
 min_area = 200
 
@@ -40,10 +40,17 @@ class CamHandler(BaseHTTPRequestHandler):
 
             cap = 0
             while cap < 40:
-                ret, old_frame = camera.read()
-                cap = cap + 1
-                if not ret:
-                    cap = 0
+                if RPI:
+                    stream = io.BytesIO()
+                    camera.capture(stream, format = 'jpeg')
+                    data = numpy.fromstring(stream.getvalue(), dtype = numpy.uint8)
+                    old_frame = cv2.imdecode(data,1)
+                    cap = cap + 1
+                else:
+                    ret, old_frame = camera.read()
+                    cap = cap + 1
+                    if not ret:
+                        cap = 0
 
             old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
 
