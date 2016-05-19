@@ -21,7 +21,8 @@ if RPI:
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if RPI:
-            piVidStream = PiVideoStream().start()
+            piVidStream = PiVideoStream()
+            piVidStream.start()
 
 
         # params for ShiTomasi corner detection
