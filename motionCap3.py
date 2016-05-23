@@ -70,8 +70,6 @@ class CamHandler(BaseHTTPRequestHandler):
                     #FIXME: broken pipe when closing page
                 except KeyboardInterrupt:
                     break
-                except Exception:
-                    break
             return
         if self.path.endswith('.html') or self.path=="/":
             self.send_response(200)
