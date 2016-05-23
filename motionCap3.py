@@ -49,6 +49,8 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernellg)
 
                     img2 = cv2.bitwise_and(img, img, mask = mask)
+
+                    img3 = cv2.combine(max(img2.size().height, img.size().height), img2.size().width + img.size().width, CV_8UC3);
                     #img2 = mask
 
                     #error: /home/pi/source/opencv/modules/core/src/arithm.cpp:1573: error: (-209) The operation is neither
@@ -57,7 +59,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
 
 
-                    r, buf = cv2.imencode(".jpg",img2)
+                    r, buf = cv2.imencode(".jpg",img3)
                     self.wfile.write("--jpgboundary\r\n")
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(len(buf)))
