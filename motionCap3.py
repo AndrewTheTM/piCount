@@ -44,8 +44,8 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = fgbg.apply(frame_gray)
                     mask = cv2.dilate(mask, None, iterations = 2)
 
-                    #img2 = cv2.bitwise_and(img, mask)
-                    img2 = mask
+                    img2 = cv2.bitwise_and(img, mask)
+                    #img2 = mask
 
                     # get absolute diff between current and first frame
                     #frameDelta = cv2.absdiff(old_gray, frame_gray)
