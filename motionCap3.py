@@ -47,7 +47,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     #mask = cv2.dilate(mask, kernelsm, iterations = 2)
 
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernelsm)
-                    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
+                    #mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
                     img2 = cv2.bitwise_and(img, img, mask = mask)
 
