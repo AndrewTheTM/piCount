@@ -33,7 +33,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
             old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
 
-            fgbg = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
+            fgbg = cv2.createBackgroundSubtractorMOG2(history = 120, varThreshold = 16, detectShadows=False)
 
             while True:
                 try:
@@ -42,7 +42,11 @@ class CamHandler(BaseHTTPRequestHandler):
                     frame_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
                     mask = fgbg.apply(frame_gray)
-                    kernelsm = np.ones((4,4),np.float32)/16
+                    #kernelsm = np.ones((6,4),np.float32)/24
+                    kernelsm = array([1,1,1,1,1,1],
+                                     [1,1,1,1,1,1],
+                                     [1,1,1,1,1,1],
+                                     [1,1,1,1,1,1])
                     kernellg = np.ones((10,10),np.float32)/1000
                     #mask = cv2.dilate(mask, kernelsm, iterations = 2)
 
