@@ -45,7 +45,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     kernel = np.ones((5,5),np.float32)/25
                     mask = cv2.dilate(mask, kernel, iterations = 2)
 
-                    #mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, None)
+                    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, None)
 
                     img2 = cv2.bitwise_and(img, img, mask = mask)
                     #img2 = mask
