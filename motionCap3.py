@@ -50,16 +50,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
                     img2 = cv2.bitwise_and(img, img, mask = mask)
 
-                    img3 = cv2.combine(max(img2.size().height, img.size().height), img2.size().width + img.size().width, CV_8UC3);
-                    #img2 = mask
-
-                    #error: /home/pi/source/opencv/modules/core/src/arithm.cpp:1573: error: (-209) The operation is neither
-                    #'array op array' (where arrays have the same size and type), nor 'array op scalar', nor 'scalar op array'
-                    # in function binary_op
-
-
-
-                    r, buf = cv2.imencode(".jpg",img3)
+                    r, buf = cv2.imencode(".jpg",img2)
                     self.wfile.write("--jpgboundary\r\n")
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(len(buf)))
