@@ -3,7 +3,7 @@
 
 # Large parts taken from https://github.com/berak/opencv_smallfry/blob/master/mjpg_serve.py
 from __future__ import print_function
-import sys, numpy as np, cv2, os, io, time
+import sys, numpy as np, cv2, os, io, time, traceback
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from piVideoStream import PiVideoStream
 
@@ -68,6 +68,8 @@ class CamHandler(BaseHTTPRequestHandler):
                     break
                 else:
                     print("There was an error")
+                    traceback.print_exc()
+                    quit()
             return
         if self.path.endswith('.html') or self.path=="/":
             self.send_response(200)
