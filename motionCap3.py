@@ -42,11 +42,12 @@ class CamHandler(BaseHTTPRequestHandler):
                     frame_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
                     mask = fgbg.apply(frame_gray)
-                    kernelsm = np.ones((4,3),np.float32)/12
+                    kernelsm = np.ones((3,3),np.float32)/9
                     kernellg = np.ones((10,10),np.float32)/1000
                     mask = cv2.dilate(mask, kernelsm, iterations = 2)
 
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernellg)
+                    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
                     img2 = cv2.bitwise_and(img, img, mask = mask)
 
