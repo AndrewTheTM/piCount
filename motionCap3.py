@@ -33,7 +33,7 @@ class CamHandler(BaseHTTPRequestHandler):
 
             old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
 
-            fgbg = cv2.createBackgroundSubtractorMOG()
+            fgbg = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
 
             while True:
                 try:
