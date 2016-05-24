@@ -53,13 +53,16 @@ class CamHandler(BaseHTTPRequestHandler):
                     params = cv2.SimpleBlobDetector_Params()
 
                     # Change thresholds
-                    params.minThreshold = 10;
+                    params.minThreshold = 1;
                     params.maxThreshold = 200;
 
                     # Filter by Area.
                     params.filterByArea = True
                     params.minArea = 1500
                     params.maxArea = 150000
+
+                    # No circles
+                    params.filterByCircularity = False
 
                     detector = cv2.SimpleBlobDetector_create(params)
                     keypoints = detector.detect(cv2.bitwise_and(img, img, mask = mask))
