@@ -50,7 +50,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
                     detector = cv2.SimpleBlobDetector_create()
-                    keypoints = detector.detect(cv2.bitwise_and(img, img, mask = mask))
+                    keypoints = detector.detect(cv2.bitwise_and(frame_gray, frame_gray, mask = mask))
                     #keypoints = detector.detect(cv2.bitwise_not(mask))
 
                     img2 = cv2.drawKeypoints(frame_gray, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
