@@ -34,7 +34,8 @@ class CamHandler(BaseHTTPRequestHandler):
             #TODO: This needs to be a parameter!
             omask = np.zeros(old_frame.shape[:2],np.uint8)
             inputmask = cv2.imread('Mask.jpg', cv2.IMREAD_GRAYSCALE)
-            inputmask = inputmask[0, 0, old_frame.size[2], old_frame.size[1]]
+            inputmask = inputmask[0, 0, old_frame.size[:2]]
+            print(old_frame.size[:2])
             omask[inputmask == 0] = 0
             omask[inputmask == 255] = 1
 
