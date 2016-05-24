@@ -59,6 +59,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     # Filter by Area.
                     params.filterByArea = True
                     params.minArea = 1500
+                    params.maxArea = 150000
 
                     detector = cv2.SimpleBlobDetector_create(params)
                     keypoints = detector.detect(cv2.bitwise_and(img, img, mask = mask))
