@@ -49,33 +49,15 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernellg)
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
-                    #storage = cv2.CreateMemStorage(0)
-                    contours, heirarchy = cv2.findContours(frame_gray, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
-                    points = []
+                    detector = cv2.SimpleBlobDetector()
+                    keypoints = detector.detect(img)
 
-                    areas = [cv2.contourArea(c) for c in contours]
-                    max_index = np.argmax(areas)
-                    cnt = contours[max_index]
-
-                    x, y, w, h, = cv2.boundingRect(cnt)
-                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-
-                    #
-                    # while contour:
-                    #     bound_rect = cv2.boundingRect(list(contour))
-                    #     contour = contour.h_next()
-                    #
-                    #     pt1 = (bound_rect[0], bound_rect[1])
-                    #     pt2 = (bound_rect[0] + bound_rect[2], bound_rect[1] + bound_rect[3])
-                    #     points.append(pt1)
-                    #     points.append(pt2)
-                    #     cv2.Rectangle(img, pt1, pt2, cv2.CV_RGB(255,0,0), 1)
+                    img2 - cv2.drawKeypoints(img, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 
 
                     #img2 = cv2.bitwise_and(img, img, mask = mask)
-                    img2 = img
+                    #img2 = img
 
                     r, buf = cv2.imencode(".jpg",img2)
                     self.wfile.write("--jpgboundary\r\n")
