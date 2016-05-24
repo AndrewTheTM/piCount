@@ -50,18 +50,27 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
                     #storage = cv2.CreateMemStorage(0)
-                    contour, heirarchy = cv2.findContours(mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+                    contours, heirarchy = cv2.findContours(mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
                     points = []
 
-                    while contour:
-                        bound_rect = cv2.boundingRect(list(contour))
-                        contour = contour.h_next()
+                    areas = [cv2.contourArea(c) for c in contours]
+                    max_index = np.argmax(areas)
+                    cnt = contours[max_index]
 
-                        pt1 = (bound_rect[0], bound_rect[1])
-                        pt2 = (bound_rect[0] + bound_rect[2], bound_rect[1] + bound_rect[3])
-                        points.append(pt1)
-                        points.append(pt2)
-                        cv2.Rectangle(img, pt1, pt2, cv2.CV_RGB(255,0,0), 1)
+                    x, y, w, h, = cv2.boundingRect(cnt)
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                    
+
+                    #
+                    # while contour:
+                    #     bound_rect = cv2.boundingRect(list(contour))
+                    #     contour = contour.h_next()
+                    #
+                    #     pt1 = (bound_rect[0], bound_rect[1])
+                    #     pt2 = (bound_rect[0] + bound_rect[2], bound_rect[1] + bound_rect[3])
+                    #     points.append(pt1)
+                    #     points.append(pt2)
+                    #     cv2.Rectangle(img, pt1, pt2, cv2.CV_RGB(255,0,0), 1)
 
 
 
