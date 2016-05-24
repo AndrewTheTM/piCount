@@ -49,19 +49,19 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernellg)
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
-                    storage = cv.CreateMemStorage(0)
-                    contour = cv.FindContours(mask, storage, cv.CV_RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE)
+                    storage = cv2.CreateMemStorage(0)
+                    contour = cv2.FindContours(mask, storage, cv2.CV_RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
                     points = []
 
                     while contour:
-                        bound_rect = cv.BoundingRect(list(contour))
+                        bound_rect = cv2.BoundingRect(list(contour))
                         contour = contour.h_next()
 
                         pt1 = (bound_rect[0], bound_rect[1])
                         pt2 = (bound_rect[0] + bound_rect[2], bound_rect[1] + bound_rect[3])
                         points.append(pt1)
                         points.append(pt2)
-                        cv.Rectangle(img, pt1, pt2, cv.CV_RGB(255,0,0), 1)
+                        cv2.Rectangle(img, pt1, pt2, cv2.CV_RGB(255,0,0), 1)
 
 
 
