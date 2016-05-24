@@ -52,7 +52,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     detector = cv2.SimpleBlobDetector_create()
                     keypoints = detector.detect(img)
 
-                    img2 = cv2.drawKeypoints(img, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+                    img2 = cv2.drawKeypoints(cv2.bitwise_and(img, img, mask = mask), keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 
 
