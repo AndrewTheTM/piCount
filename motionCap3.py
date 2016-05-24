@@ -36,10 +36,10 @@ class CamHandler(BaseHTTPRequestHandler):
             inputmask = cv2.imread('Mask.jpg', cv2.IMREAD_GRAYSCALE)
             print(inputmask.shape)
 
-            #inputmask = inputmask[0, 0, 640, 480]
+            inputmask = inputmask[0:480, 0:640]
 
-            #omask[inputmask == 0] = 0
-            #omask[inputmask == 255] = 1
+            omask[inputmask == 0] = 0
+            omask[inputmask == 255] = 1
 
             old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
 
