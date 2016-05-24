@@ -22,12 +22,6 @@ class CamHandler(BaseHTTPRequestHandler):
         #     maxLevel = 2,
         #     criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
 
-        #TODO: This needs to be a parameter!
-        omask = np.zeros(img.shape[:2],np.uint8)
-        inputmask = cv2.imread('Mask.jpg', cv2.IMREAD_GRAYSCALE)
-        omask[inputmask == 0] = 0
-        omask[inputmask == 255] = 1
-
         if self.path.endswith('.mjpg'):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
@@ -36,6 +30,12 @@ class CamHandler(BaseHTTPRequestHandler):
             while cap < 40:
                 old_frame = piVidStream.read()
                 cap = cap + 1
+
+            #TODO: This needs to be a parameter!
+            omask = np.zeros(old_frame.shape[:2],np.uint8)
+            inputmask = cv2.imread('Mask.jpg', cv2.IMREAD_GRAYSCALE)
+            omask[inputmask == 0] = 0
+            omask[inputmask == 255] = 1
 
             old_gray = cv2.cvtColor(old_frame, cv2.COLOR_BGR2GRAY)
 
