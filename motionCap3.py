@@ -53,11 +53,11 @@ class CamHandler(BaseHTTPRequestHandler):
                     #keypoints = detector.detect(cv2.bitwise_and(img, img, mask = mask))
                     keypoints = detector.detect(cv2.bitwise_not(mask))
 
-                    img3 = cv2.drawKeypoints(img, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+                    img2 = cv2.drawKeypoints(img, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 
 
-                    img2 = cv2.bitwise_and(img3, img3, mask = mask)
+                    #img2 = cv2.bitwise_and(img, img, mask = mask)
                     #img2 = img
 
                     r, buf = cv2.imencode(".jpg",img2)
