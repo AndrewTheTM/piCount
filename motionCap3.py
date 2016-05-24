@@ -49,7 +49,18 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernellg)
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
-                    detector = cv2.SimpleBlobDetector_create()
+                    # Setup SimpleBlobDetector parameters.
+                    params = cv2.SimpleBlobDetector_Params()
+
+                    # Change thresholds
+                    params.minThreshold = 10;
+                    params.maxThreshold = 200;
+
+                    # Filter by Area.
+                    params.filterByArea = True
+                    params.minArea = 1500
+
+                    detector = cv2.SimpleBlobDetector_create(params)
                     keypoints = detector.detect(cv2.bitwise_and(frame_gray, frame_gray, mask = mask))
                     #keypoints = detector.detect(cv2.bitwise_not(mask))
 
