@@ -23,7 +23,7 @@ class CamHandler(BaseHTTPRequestHandler):
         #     criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 0.03))
 
         #TODO: This needs to be a parameter!
-        inputmask = cv2.imread('Mask.jpg', CV_LOAD_IMAGE_GRAYSCALE)
+        inputmask = cv2.imread('Mask.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)
         omask[inputmask == 0] = 0
         omask[inputmask == 255] = 1
 
