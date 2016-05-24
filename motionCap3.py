@@ -50,11 +50,11 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
                     #storage = cv2.CreateMemStorage(0)
-                    contour = cv2.findContours(mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+                    contour, heirarchy = cv2.findContours(mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
                     points = []
 
                     while contour:
-                        bound_rect = cv2.BoundingRect(list(contour))
+                        bound_rect = cv2.boundingRect(list(contour))
                         contour = contour.h_next()
 
                         pt1 = (bound_rect[0], bound_rect[1])
