@@ -58,8 +58,8 @@ class CamHandler(BaseHTTPRequestHandler):
 
                     # Filter by Area.
                     params.filterByArea = True
-                    params.minArea = 1500
-                    params.maxArea = 150000
+                    params.minArea = 150
+                    params.maxArea = 15000
 
                     # No circles
                     params.filterByCircularity = False
