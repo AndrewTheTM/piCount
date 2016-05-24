@@ -49,8 +49,8 @@ class CamHandler(BaseHTTPRequestHandler):
                     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernellg)
                     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernellg)
 
-                    storage = cv2.CreateMemStorage(0)
-                    contour = cv2.FindContours(mask, storage, cv2.CV_RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+                    #storage = cv2.CreateMemStorage(0)
+                    contour = cv2.findContours(mask, cv2.CV_RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
                     points = []
 
                     while contour:
