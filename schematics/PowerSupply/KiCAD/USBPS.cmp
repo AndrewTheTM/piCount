@@ -1,0 +1,66 @@
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 6/6/2016 11:17:04 AM
+
+BeginCmp
+TimeStamp = /57472AD6;
+Reference = C1;
+ValeurCmp = 470uF;
+IdModule  = c_elec_10x10;
+EndCmp
+
+BeginCmp
+TimeStamp = /57558CDB;
+Reference = C2;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /57472B30;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED-5MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /57472AC7;
+Reference = F1;
+ValeurCmp = FUSE;
+IdModule  = FUSE5-20;
+EndCmp
+
+BeginCmp
+TimeStamp = /57488432;
+Reference = J1;
+ValeurCmp = USBA;
+IdModule  = USB_A;
+EndCmp
+
+BeginCmp
+TimeStamp = /57558934;
+Reference = J2;
+ValeurCmp = USBA;
+IdModule  = USB_A;
+EndCmp
+
+BeginCmp
+TimeStamp = /57472BA1;
+Reference = P1;
+ValeurCmp = CONN_2;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /57472B1C;
+Reference = R1;
+ValeurCmp = 310;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /57472B07;
+Reference = U1;
+ValeurCmp = 7805;
+IdModule  = DPAK3;
+EndCmp
+
+EndListe

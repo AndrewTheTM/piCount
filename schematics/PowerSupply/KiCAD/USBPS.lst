@@ -1,0 +1,26 @@
+eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 6/6/2016 2:47:01 PM
+#Cmp ( order = Reference )
+| C1         470uF       ; PCE3909CT-ND;             ;             ;             ;             ;             ;             ;             
+| C2         0.1uF       ; 399-7999-1-ND;             ;             ;             ;             ;             ;             ;             
+| D1         LED         ; 516-2228-1-ND;             ;             ;             ;             ;             ;             ;             
+| F1         FUSE        ; 36-4527-ND  ; 5mm x 20mm  ;             ;             ;             ;             ;             ;             
+| J1         USBA        ; UE27AC54100-ND;             ;             ;             ;             ;             ;             ;             
+| J2         USBA        ; UE27AC54100-ND;             ;             ;             ;             ;             ;             ;             
+| P1         CONN_2      ;             ;             ;             ;             ;             ;             ;             ;             
+| R1         310         ;             ;             ;             ;             ;             ;             ;             ;             
+| U1         7805        ; MC7805BDTRKGOSCT-ND;             ;             ;             ;             ;             ;             ;             
+#End Cmp
+
+#Cmp ( order = Value )
+| 0.1uF        C2        ; 399-7999-1-ND;             ;             ;             ;             ;             ;             ;             
+| 470uF        C1        ; PCE3909CT-ND;             ;             ;             ;             ;             ;             ;             
+| LED          D1        ; 516-2228-1-ND;             ;             ;             ;             ;             ;             ;             
+| FUSE         F1        ; 36-4527-ND  ; 5mm x 20mm  ;             ;             ;             ;             ;             ;             
+| USBA         J1        ; UE27AC54100-ND;             ;             ;             ;             ;             ;             ;             
+| USBA         J2        ; UE27AC54100-ND;             ;             ;             ;             ;             ;             ;             
+| CONN_2       P1        ;             ;             ;             ;             ;             ;             ;             ;             
+| 310          R1        ;             ;             ;             ;             ;             ;             ;             ;             
+| 7805         U1        ; MC7805BDTRKGOSCT-ND;             ;             ;             ;             ;             ;             ;             
+#End Cmp
+
+#End List
